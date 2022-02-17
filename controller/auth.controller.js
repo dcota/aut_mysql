@@ -18,18 +18,21 @@ exports.login = (req,res) => {
                         msg:'Username ou password incorreta'
                     })
                 }
-                let payload = {
-                    pk : user.public_key
-                } 
-                let options = {
-                    expiresIn: 15000,
-                    issuer: 'ENTA'
+                else {
+                    let payload = {
+                        pk : user.public_key
+                    } 
+                    let options = {
+                        expiresIn: 15000,
+                        issuer: 'ENTA'
+                    }
+                    let token = jwt.sign(payload, user.private_key,options)
+                    let userInfo = {
+                        level: user.level
+                    }
+                    res.header('Authorization',token).json(userInfo)
                 }
-                let token = jwt.sign(payload, user.private_key,options)
-                let userInfo = {
-                    level: user.level
-                }
-                res.header('Authorization',token).json(userInfo)
+                
             }
         )
     }
