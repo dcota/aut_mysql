@@ -1,7 +1,35 @@
-const bcryptjs = require('bcryptjs')
 const connection = require('../config/dbconnection')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+
+exports.checkAuth = (req, res, callback) => {
+    let token = req.headers.authorization
+    if(!token) res.status(406).json({msg:"Não autorizado"})
+    let payload = jwt.decode(token)
+    try {
+        connection.query(
+            'SELECT * FROM user WHERE ? = public_key',
+            [payload.pk],
+            (error,result) => {
+                if (error) throw error
+                if(!result) res.status(401).json({msg:'Utlizador não encontrado'})
+                let user = result[0]
+                console.log(user)
+                jwt.verify(token,user.private_key, (error)=>{
+                    if(error) res.status(401).json('Token inválido')
+                    if(user.level=='admin'){
+                        req.user = user
+                        return callback()
+                    }
+                    
+                })
+            }
+        )
+    }
+    catch(error){
+        res.json({msg:'Ocorreu um erro'})
+    }
+}
 
 exports.login = (req,res) => {
     let username = req.body.username
@@ -20,7 +48,8 @@ exports.login = (req,res) => {
                 }
                 else {
                     let payload = {
-                        pk : user.public_key
+                        pk : user.public_key,
+                        level: user.level
                     } 
                     let options = {
                         expiresIn: 15000,
