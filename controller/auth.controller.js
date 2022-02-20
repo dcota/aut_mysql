@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 
 exports.checkAuth = (req, res, callback) => {
     let token = req.headers.authorization
+    console.log('Token: '+ token)
     if(!token) res.status(406).json({msg:"Não autorizado"})
     let payload = jwt.decode(token)
     try {
@@ -14,14 +15,10 @@ exports.checkAuth = (req, res, callback) => {
                 if (error) throw error
                 if(!result) res.status(401).json({msg:'Utlizador não encontrado'})
                 let user = result[0]
-                console.log(user)
                 jwt.verify(token,user.private_key, (error)=>{
                     if(error) res.status(401).json('Token inválido')
-                    if(user.level=='admin'){
-                        req.user = user
-                        return callback()
-                    }
-                    
+                    req.user = user
+                    return callback()
                 })
             }
         )
@@ -48,8 +45,7 @@ exports.login = (req,res) => {
                 }
                 else {
                     let payload = {
-                        pk : user.public_key,
-                        level: user.level
+                        pk : user.public_key
                     } 
                     let options = {
                         expiresIn: 15000,
@@ -59,6 +55,7 @@ exports.login = (req,res) => {
                     let userInfo = {
                         level: user.level
                     }
+
                     res.header('Authorization',token).json(userInfo)
                 }
                 

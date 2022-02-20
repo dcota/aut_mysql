@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.28, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
 --
--- Host: localhost    Database: auth
+-- Host: 127.0.0.1    Database: auth
 -- ------------------------------------------------------
--- Server version	8.0.28
+-- Server version	8.0.26
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,7 +32,7 @@ CREATE TABLE `user` (
   `registration_data` date NOT NULL,
   PRIMARY KEY (`iduser`),
   UNIQUE KEY `username_UNIQUE` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (7,'dcota','$2a$04$7wHUYMjV8giecEZ87LhF0OHWB0Cw5kQ2Vygjtgiezcs0efZ8MhJ6.','jbb83dpvm27','ssq8axgi4gc7','admin','2022-02-17');
+INSERT INTO `user` VALUES (7,'dcota','$2a$04$7wHUYMjV8giecEZ87LhF0OHWB0Cw5kQ2Vygjtgiezcs0efZ8MhJ6.','jbb83dpvm27','ssq8axgi4gc7','admin','2022-02-17'),(14,'tis','$2a$10$OO0EOR0nOv09z8SOikEdiuq2CLzjZC2MsZtw5htgFcFkU5qJYPtEa','rnlkesbzwhr14','jbapr2drlc14','regular','2022-02-20');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-17 17:13:46
+-- Dump completed on 2022-02-20 19:43:12
