@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs')
 
 exports.checkAuth = (req, res, callback) => {
     let token = req.headers.authorization
-    console.log('Token: '+ token)
     if(!token) res.status(406).json({msg:"Não autorizado"})
     let payload = jwt.decode(token)
     try {

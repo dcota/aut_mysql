@@ -25,6 +25,10 @@ function login() {
   };
   fetch("http://localhost:3000/login", options)
     .then((res) => {
+      if(res.status===406){
+        alert(res.json().msg)
+        return
+      }       
       let token = res.headers.get("Authorization");
       localStorage.setItem("token", token);
       return res.json();
@@ -36,10 +40,7 @@ function login() {
 }
 
 function getPage(data){
-    console.log(localStorage.getItem("token"));
-    localStorage.setItem("level", data.level);
-    console.log(localStorage.getItem("level"));
-    
+        localStorage.setItem("level", data.level); 
         const obj = {
             level: localStorage.getItem('level')
         }

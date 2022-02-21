@@ -5,10 +5,6 @@ const bcryptjs = require("bcryptjs");
 const authController = require("../controller/auth.controller");
 const path = require("path");
 
-/*router.post('/login', 
-  authController.login
-)*/
-
 router.post("/", authController.login,(req,res)=>{
   res.redirect('/adminpage')
 })
